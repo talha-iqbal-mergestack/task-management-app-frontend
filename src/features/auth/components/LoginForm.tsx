@@ -1,15 +1,33 @@
-import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, SubmitHandler } from 'react-hook-form'
+
+const schema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8),
+})
+
+interface IFormInput {
+	email: string
+	password: string
+}
 
 export function LoginForm() {
-	const [formData, setFormData] = useState({
-		email: '',
-		password: '',
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(schema),
+		defaultValues: {
+			email: '',
+			password: '',
+		},
 	})
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault()
-		// TODO: Implement login logic
+	const onSubmit: SubmitHandler<IFormInput> = data => {
+		console.log(data)
 	}
 
 	return (
@@ -20,31 +38,33 @@ export function LoginForm() {
 						Sign in to your account
 					</h2>
 				</div>
-				<form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+				<form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
 							<input
 								type="email"
-								required
 								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 								placeholder="Email address"
-								value={formData.email}
-								onChange={e =>
-									setFormData({ ...formData, email: e.target.value })
-								}
+								{...register('email')}
 							/>
+							{errors.email && (
+								<p className="text-red-500 text-xs italic">
+									{errors.email.message}
+								</p>
+							)}
 						</div>
 						<div>
 							<input
 								type="password"
-								required
 								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 								placeholder="Password"
-								value={formData.password}
-								onChange={e =>
-									setFormData({ ...formData, password: e.target.value })
-								}
+								{...register('password')}
 							/>
+							{errors.password && (
+								<p className="text-red-500 text-xs italic">
+									{errors.password.message}
+								</p>
+							)}
 						</div>
 					</div>
 
