@@ -25,6 +25,12 @@
 		/* Absolute paths */
 		"baseUrl": ".",
 		"paths": {
+			"@assets/*": ["src/assets/*"],
+			"@components/*": ["src/components/*"],
+			"@features/*": ["src/features/*"],
+			"@hooks/*": ["src/hooks/*"],
+			"@types/*": ["src/types/*"],
+			"@utils/*": ["src/utils/*"],
 			"@src/*": ["src/*"]
 		}
 	},
