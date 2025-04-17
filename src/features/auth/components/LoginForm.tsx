@@ -8,7 +8,7 @@ const schema = z.object({
 	password: z.string().min(8),
 })
 
-interface IFormInput {
+type FormInput = {
 	email: string
 	password: string
 }
@@ -79,7 +79,7 @@ export function LoginForm() {
 
 					<div className="text-sm text-center">
 						<Link
-							to="/register"
+							to="/signup"
 							className="font-medium text-indigo-600 hover:text-indigo-500"
 						>
 							Don't have an account? Sign up
