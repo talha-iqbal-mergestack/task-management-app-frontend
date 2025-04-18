@@ -7,7 +7,7 @@ import {
 
 export const authApi = {
 	login: (credentials: LoginCredentials) =>
-		apiClient<AuthResponse>('/auth/login', {
+		apiClient<AuthResponse>('/auth/signin', {
 			method: 'POST',
 			data: credentials,
 		}),
