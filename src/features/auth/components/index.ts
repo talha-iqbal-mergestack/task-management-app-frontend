@@ -1,2 +1,2 @@
 export { SignupForm } from '@features/auth/components/SignupForm'
-export { LoginForm } from '@features/auth/components/LoginForm'
+export { SigninForm } from '@features/auth/components/SigninForm'

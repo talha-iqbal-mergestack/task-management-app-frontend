@@ -1,7 +1,10 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
+
+import { authApi } from '@features/auth/api'
 
 const schema = z.object({
 	email: z.string().email(),
@@ -13,11 +16,13 @@ type FormInput = {
 	password: string
 }
 
-export function LoginForm() {
+export function SigninForm() {
+	const navigate = useNavigate()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		setError,
 	} = useForm({
 		resolver: zodResolver(schema),
 		defaultValues: {
@@ -26,8 +31,21 @@ export function LoginForm() {
 		},
 	})
 
-	const onSubmit: SubmitHandler<IFormInput> = data => {
-		console.log(data)
+	const signinMutation = useMutation({
+		mutationFn: authApi.login,
+		onSuccess: data => {
+			localStorage.setItem('token', data.token)
+			navigate({ to: '/dashboard' })
+		},
+		onError: error => {
+			setError('root', {
+				message: error.message || 'An error occurred during login',
+			})
+		},
+	})
+
+	const onSubmit: SubmitHandler<FormInput> = data => {
+		signinMutation.mutate(data)
 	}
 
 	return (
@@ -39,6 +57,11 @@ export function LoginForm() {
 					</h2>
 				</div>
 				<form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+					{errors.root && (
+						<div className="text-red-500 text-sm text-center">
+							{errors.root.message}
+						</div>
+					)}
 					<div className="rounded-md shadow-sm -space-y-px">
 						<div>
 							<input
@@ -73,7 +96,7 @@ export function LoginForm() {
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 						>
-							Sign in
+							{signinMutation.isPending ? 'Signing in...' : 'Sign in'}
 						</button>
 					</div>
 
