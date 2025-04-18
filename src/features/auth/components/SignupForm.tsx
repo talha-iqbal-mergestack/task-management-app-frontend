@@ -43,11 +43,11 @@ export function SignupForm() {
 		mutationFn: authApi.signup,
 		onSuccess: data => {
 			localStorage.setItem('token', data.token)
-			navigate({ to: '/login' })
+			navigate({ to: '/signin' })
 		},
 		onError: error => {
 			setError('root', {
-				message: error.message || 'An error occurred during login',
+				message: error.message || 'An error occurred during signup',
 			})
 		},
 	})
@@ -124,7 +124,7 @@ export function SignupForm() {
 
 					<div className="text-sm text-center">
 						<Link
-							to="/login"
+							to="/signin"
 							className="font-medium text-indigo-600 hover:text-indigo-500"
 						>
 							Already have an account? Sign in

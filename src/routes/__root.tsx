@@ -11,7 +11,7 @@ export const Route = createRootRoute({
 	beforeLoad: ({ location }) => {
 		// Redirect to login if we're at the root URL
 		if (location.pathname === '/') {
-			throw redirect({ to: '/login' })
+			throw redirect({ to: '/signin' })
 		}
 	},
 })

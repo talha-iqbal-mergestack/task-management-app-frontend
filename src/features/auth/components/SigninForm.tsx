@@ -32,14 +32,14 @@ export function SigninForm() {
 	})
 
 	const signinMutation = useMutation({
-		mutationFn: authApi.login,
+		mutationFn: authApi.signin,
 		onSuccess: data => {
 			localStorage.setItem('token', data.token)
 			navigate({ to: '/dashboard' })
 		},
 		onError: error => {
 			setError('root', {
-				message: error.message || 'An error occurred during login',
+				message: error.message || 'An error occurred during signin',
 			})
 		},
 	})

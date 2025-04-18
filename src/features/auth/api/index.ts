@@ -1,12 +1,12 @@
 import { apiClient } from '@lib/api'
 import {
 	AuthResponse,
-	LoginCredentials,
+	SigninCredentials,
 	SignupCredentials,
 } from '@features/auth/types'
 
 export const authApi = {
-	login: (credentials: LoginCredentials) =>
+	signin: (credentials: SigninCredentials) =>
 		apiClient<AuthResponse>('/auth/signin', {
 			method: 'POST',
 			data: credentials,
