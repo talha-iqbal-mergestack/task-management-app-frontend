@@ -3,8 +3,10 @@ import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
+import { useDispatch } from 'react-redux'
 
 import { authApi } from '@features/auth/api'
+import { setCredentials } from '@features/auth/auth-slice'
 
 const schema = z.object({
 	email: z.string().email(),
@@ -17,6 +19,7 @@ type FormInput = {
 }
 
 export function SigninForm() {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const {
 		register,
@@ -34,7 +37,8 @@ export function SigninForm() {
 	const signinMutation = useMutation({
 		mutationFn: authApi.signin,
 		onSuccess: data => {
-			localStorage.setItem('token', data.token)
+			localStorage.setItem('token', data.body.token)
+			dispatch(setCredentials({ token: data.body.token }))
 			navigate({ to: '/dashboard' })
 		},
 		onError: error => {

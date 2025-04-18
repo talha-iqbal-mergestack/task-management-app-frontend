@@ -26,12 +26,11 @@
 		"baseUrl": ".",
 		"paths": {
 			"@assets/*": ["src/assets/*"],
-			"@components/*": ["src/components/*"],
 			"@features/*": ["src/features/*"],
 			"@lib/*": ["src/lib/*"],
+			"@shared/*": ["src/shared/*"],
+			"@store": ["./src/store"],
 			"@store/*": ["src/store/*"],
-			"@hooks/*": ["src/hooks/*"],
-			"@types/*": ["src/types/*"],
 			"@utils/*": ["src/utils/*"],
 			"@src/*": ["src/*"]
 		}
