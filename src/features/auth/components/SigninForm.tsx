@@ -1,6 +1,10 @@
 import { Link } from '@tanstack/react-router'
 
 import { useSigninForm } from '@features/auth/hooks'
+import { FormInput } from '@shared/components'
+import { SigninFormValues } from '@features/auth/types'
+
+const SigninFormInput = FormInput<SigninFormValues>
 
 export function SigninForm() {
 	const { form, signinMutation, onSubmit } = useSigninForm()
@@ -25,32 +29,22 @@ export function SigninForm() {
 						</div>
 					)}
 					<div className="rounded-md shadow-sm -space-y-px">
-						<div>
-							<input
-								type="email"
-								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								placeholder="Email address"
-								{...register('email')}
-							/>
-							{errors.email && (
-								<p className="text-red-500 text-xs italic">
-									{errors.email.message}
-								</p>
-							)}
-						</div>
-						<div>
-							<input
-								type="password"
-								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								placeholder="Password"
-								{...register('password')}
-							/>
-							{errors.password && (
-								<p className="text-red-500 text-xs italic">
-									{errors.password.message}
-								</p>
-							)}
-						</div>
+						<SigninFormInput
+							type="email"
+							name="email"
+							placeholder="Email address"
+							register={register}
+							error={errors.email?.message}
+							isFirst
+						/>
+						<SigninFormInput
+							type="password"
+							name="password"
+							placeholder="Password"
+							register={register}
+							error={errors.password?.message}
+							isLast
+						/>
 					</div>
 
 					<div>

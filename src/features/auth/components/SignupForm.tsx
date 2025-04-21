@@ -1,6 +1,10 @@
 import { Link } from '@tanstack/react-router'
 
 import { useSignupForm } from '@features/auth/hooks'
+import { SignupFormValues } from '@features/auth/types'
+import { FormInput } from '@shared/components'
+
+const SignupFormInput = FormInput<SignupFormValues>
 
 export function SignupForm() {
 	const { form, signupMutation, onSubmit } = useSignupForm()
@@ -25,45 +29,29 @@ export function SignupForm() {
 						</div>
 					)}
 					<div className="rounded-md shadow-sm -space-y-px">
-						<div>
-							<input
-								type="email"
-								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								placeholder="Email address"
-								{...register('email')}
-							/>
-							{errors.email && (
-								<p className="text-red-500 text-xs italic">
-									{errors.email.message}
-								</p>
-							)}
-						</div>
-						<div>
-							<input
-								type="password"
-								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								placeholder="Password"
-								{...register('password')}
-							/>
-							{errors.password && (
-								<p className="text-red-500 text-xs italic">
-									{errors.password.message}
-								</p>
-							)}
-						</div>
-						<div>
-							<input
-								type="password"
-								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-								placeholder="Confirm password"
-								{...register('confirmPassword')}
-							/>
-							{errors.confirmPassword && (
-								<p className="text-red-500 text-xs italic">
-									{errors.confirmPassword.message}
-								</p>
-							)}
-						</div>
+						<SignupFormInput
+							type="email"
+							name="email"
+							placeholder="Email address"
+							register={register}
+							error={errors.email?.message}
+							isFirst
+						/>
+						<SignupFormInput
+							type="password"
+							name="password"
+							placeholder="Password"
+							register={register}
+							error={errors.password?.message}
+						/>
+						<SignupFormInput
+							type="password"
+							name="confirmPassword"
+							placeholder="Confirm password"
+							register={register}
+							error={errors.confirmPassword?.message}
+							isLast
+						/>
 					</div>
 
 					<div>

@@ -7,6 +7,7 @@ import { z } from 'zod'
 
 import { authApi } from '@features/auth/api'
 import { setCredentials } from '@features/auth/auth-slice'
+import { SignupFormValues } from '@features/auth/types'
 
 const schema = z
 	.object({
@@ -19,17 +20,11 @@ const schema = z
 		path: ['confirmPassword'],
 	})
 
-type FormInput = {
-	email: string
-	password: string
-	confirmPassword: string
-}
-
 export function useSignupForm() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	const form = useForm<FormInput>({
+	const form = useForm<SignupFormValues>({
 		resolver: zodResolver(schema),
 		defaultValues: {
 			email: '',
@@ -51,7 +46,7 @@ export function useSignupForm() {
 		},
 	})
 
-	const onSubmit: SubmitHandler<FormInput> = data => {
+	const onSubmit: SubmitHandler<SignupFormValues> = data => {
 		const { email, confirmPassword: password } = data
 		signupMutation.mutate({ email, password })
 	}

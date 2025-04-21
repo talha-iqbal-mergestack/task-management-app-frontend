@@ -7,16 +7,12 @@ import { z } from 'zod'
 
 import { authApi } from '@features/auth/api'
 import { setCredentials } from '@features/auth/auth-slice'
+import { SigninFormValues } from '@features/auth/types'
 
 const schema = z.object({
 	email: z.string().email(),
 	password: z.string().min(8),
 })
-
-type FormInput = {
-	email: string
-	password: string
-}
 
 export function useSigninForm() {
 	const dispatch = useDispatch()
@@ -43,7 +39,7 @@ export function useSigninForm() {
 		},
 	})
 
-	const onSubmit: SubmitHandler<FormInput> = data => {
+	const onSubmit: SubmitHandler<SigninFormValues> = data => {
 		signinMutation.mutate(data)
 	}
 
