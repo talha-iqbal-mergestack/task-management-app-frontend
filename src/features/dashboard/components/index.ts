@@ -1,1 +1,1 @@
-export { TaskLists } from '@features/dashboard/components/TaskLists'
+export { Tasks } from '@features/dashboard/components/Tasks'
