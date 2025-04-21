@@ -1,64 +1,14 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { z } from 'zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import { useDispatch } from 'react-redux'
+import { Link } from '@tanstack/react-router'
 
-import { authApi } from '@features/auth/api'
-import { setCredentials } from '@features/auth/auth-slice'
-
-const schema = z
-	.object({
-		email: z.string().email(),
-		password: z.string().min(8),
-		confirmPassword: z.string().min(8),
-	})
-	.refine(data => data.password === data.confirmPassword, {
-		message: "Passwords don't match",
-		path: ['confirmPassword'],
-	})
-
-type FormInput = {
-	email: string
-	password: string
-	confirmPassword: string
-}
+import { useSignupForm } from '@features/auth/hooks'
 
 export function SignupForm() {
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
+	const { form, signupMutation, onSubmit } = useSignupForm()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		setError,
-	} = useForm({
-		resolver: zodResolver(schema),
-		defaultValues: {
-			email: '',
-			password: '',
-			confirmPassword: '',
-		},
-	})
-
-	const signupMutation = useMutation({
-		mutationFn: authApi.signup,
-		onSuccess: data => {
-			dispatch(setCredentials({ user: data.body }))
-			navigate({ to: '/signin' })
-		},
-		onError: error => {
-			setError('root', {
-				message: error.message || 'An error occurred during signup',
-			})
-		},
-	})
-
-	const onSubmit: SubmitHandler<FormInput> = data => {
-		const { email, confirmPassword: password } = data
-		signupMutation.mutate({ email, password })
-	}
+	} = form
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">

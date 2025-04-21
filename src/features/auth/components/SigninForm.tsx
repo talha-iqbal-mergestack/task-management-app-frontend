@@ -1,56 +1,14 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import z from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { useMutation } from '@tanstack/react-query'
-import { useDispatch } from 'react-redux'
+import { Link } from '@tanstack/react-router'
 
-import { authApi } from '@features/auth/api'
-import { setCredentials } from '@features/auth/auth-slice'
-
-const schema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
-})
-
-type FormInput = {
-	email: string
-	password: string
-}
+import { useSigninForm } from '@features/auth/hooks'
 
 export function SigninForm() {
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
+	const { form, signinMutation, onSubmit } = useSigninForm()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		setError,
-	} = useForm({
-		resolver: zodResolver(schema),
-		defaultValues: {
-			email: '',
-			password: '',
-		},
-	})
-
-	const signinMutation = useMutation({
-		mutationFn: authApi.signin,
-		onSuccess: data => {
-			localStorage.setItem('token', data.body.token)
-			dispatch(setCredentials({ token: data.body.token }))
-			navigate({ to: '/dashboard' })
-		},
-		onError: error => {
-			setError('root', {
-				message: error.message || 'An error occurred during signin',
-			})
-		},
-	})
-
-	const onSubmit: SubmitHandler<FormInput> = data => {
-		signinMutation.mutate(data)
-	}
+	} = form
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">
