@@ -16,6 +16,7 @@ function* handleSignin(action: PayloadAction<SigninCredentials>) {
 	yield put(signinStart())
 	try {
 		const response: SigninResponse = yield call(authApi.signin, action.payload)
+		localStorage.setItem('token', response.body.token)
 		yield put(setCredentials({ token: response.body.token }))
 	} catch (error: any) {
 		yield put(signinError(error.message))
