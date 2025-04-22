@@ -1,5 +1,5 @@
 import { useTasksForm } from '@features/dashboard/hooks'
-import { FormInput } from '@shared/components'
+import { FormInput } from '@common/components'
 import { TaskFormValues } from '@features/dashboard/types'
 import { useState } from 'react'
 

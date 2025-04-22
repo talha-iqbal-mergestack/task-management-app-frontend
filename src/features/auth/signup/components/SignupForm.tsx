@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
 
-import { useSignupForm } from '@features/auth/hooks'
-import { SignupFormValues } from '@features/auth/types'
-import { FormInput } from '@shared/components'
+import { useSignupForm } from '@features/auth/signup/hooks'
+import { SignupFormValues } from '@features/auth/signup/types'
+import { FormInput } from '@common/components'
 
 const SignupFormInput = FormInput<SignupFormValues>
 

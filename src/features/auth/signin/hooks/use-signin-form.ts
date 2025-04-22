@@ -7,7 +7,7 @@ import { z } from 'zod'
 
 import { authApi } from '@features/auth/api'
 import { setCredentials } from '@features/auth/auth-slice'
-import { SigninFormValues } from '@features/auth/types'
+import { SigninFormValues } from '@features/auth/signin/types'
 
 const schema = z.object({
 	email: z.string().email(),

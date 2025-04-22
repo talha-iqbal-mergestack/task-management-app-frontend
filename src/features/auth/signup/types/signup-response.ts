@@ -1,4 +1,4 @@
-import { ApiResponse } from '@shared/types'
+import { ApiResponse } from '@constants/types'
 
 export type SignupResponse = ApiResponse<{
 	email: string
