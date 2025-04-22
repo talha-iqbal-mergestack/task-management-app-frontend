@@ -17,9 +17,10 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@assets': path.resolve(__dirname, './src/assets'),
+			'@common': path.resolve(__dirname, './src/common'),
+			'@constants': path.resolve(__dirname, './src/constants'),
 			'@features': path.resolve(__dirname, './src/features'),
 			'@lib': path.resolve(__dirname, './src/lib'),
-			'@shared': path.resolve(__dirname, './src/shared'),
 			'@store': path.resolve(__dirname, './src/store'),
 			'@utils': path.resolve(__dirname, './src/utils'),
 			'@src': path.resolve(__dirname, './src'),

@@ -26,9 +26,10 @@
 		"baseUrl": ".",
 		"paths": {
 			"@assets/*": ["src/assets/*"],
+			"@common/*": ["src/common/*"],
+			"@constants/*": ["src/constants/*"],
 			"@features/*": ["src/features/*"],
 			"@lib/*": ["src/lib/*"],
-			"@shared/*": ["src/shared/*"],
 			"@store": ["./src/store"],
 			"@store/*": ["src/store/*"],
 			"@utils/*": ["src/utils/*"],
