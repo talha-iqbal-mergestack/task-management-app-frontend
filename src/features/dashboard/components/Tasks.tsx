@@ -1,7 +1,10 @@
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+
 import { useTasksForm } from '@features/dashboard/hooks'
 import { FormInput } from '@common/components'
 import { TaskFormValues } from '@features/dashboard/types'
-import { useState } from 'react'
+import { RootState } from '@store'
 
 const TasksFormInput = FormInput<TaskFormValues>
 
@@ -22,11 +25,15 @@ export function Tasks() {
 	} = form
 
 	const [editableText, setEditableText] = useState('')
+	const isAuthenticated = useSelector(
+		(state: RootState) => state.auth.isAuthenticated,
+	)
 
 	return (
 		<div className="h-[calc(100vh)] flex flex-col w-full p-6 bg-gray-50">
 			<div className="flex-1 flex flex-col min-h-0">
 				<div className="flex-shrink-0">
+					{isAuthenticated && <p>Welcome</p>}
 					<h2 className="text-2xl font-bold text-gray-900">My Tasks</h2>
 				</div>
 

@@ -1,5 +1,8 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
+import { RootState } from '@store'
 import { useSigninForm } from '@features/auth/signin/hooks'
 import { FormInput } from '@common/components'
 import { SigninFormValues } from '@features/auth/signin/types'
@@ -13,6 +16,16 @@ export function SigninForm() {
 		handleSubmit,
 		formState: { errors },
 	} = form
+	const navigate = useNavigate()
+	const isAuthenticated = useSelector(
+		(state: RootState) => state.auth.isAuthenticated,
+	)
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			navigate({ to: '/dashboard' })
+		}
+	}, [isAuthenticated, navigate])
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">

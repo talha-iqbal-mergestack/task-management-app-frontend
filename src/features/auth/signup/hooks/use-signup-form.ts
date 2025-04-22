@@ -48,7 +48,8 @@ export function useSignupForm() {
 
 	const onSubmit: SubmitHandler<SignupFormValues> = data => {
 		const { email, confirmPassword: password } = data
-		signupMutation.mutate({ email, password })
+		// signupMutation.mutate({ email, password })
+		dispatch({ type: 'auth/signup', payload: { email, password } })
 	}
 
 	return {

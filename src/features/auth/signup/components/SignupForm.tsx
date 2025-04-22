@@ -1,5 +1,8 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
+import { RootState } from '@store'
 import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
 import { FormInput } from '@common/components'
@@ -13,6 +16,17 @@ export function SignupForm() {
 		handleSubmit,
 		formState: { errors },
 	} = form
+
+	const navigate = useNavigate()
+	const isAuthenticated = useSelector(
+		(state: RootState) => state.auth.isAuthenticated,
+	)
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			navigate({ to: '/dashboard' })
+		}
+	}, [isAuthenticated, navigate])
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">

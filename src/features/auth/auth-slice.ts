@@ -4,6 +4,8 @@ const initialState = {
 	user: null,
 	token: null,
 	isAuthenticated: false,
+	loading: false,
+	error: null,
 }
 
 const authSlice = createSlice({
@@ -20,8 +22,31 @@ const authSlice = createSlice({
 			state.token = null
 			state.isAuthenticated = false
 		},
+		signinStart: state => {
+			state.loading = true
+			state.error = null
+		},
+		signinError: (state, action) => {
+			state.loading = false
+			state.error = action.payload
+		},
+		signupStart: state => {
+			state.loading = true
+			state.error = null
+		},
+		signupError: (state, action) => {
+			state.loading = false
+			state.error = action.payload
+		},
 	},
 })
 
-export const { setCredentials, logout } = authSlice.actions
+export const {
+	setCredentials,
+	logout,
+	signinStart,
+	signinError,
+	signupStart,
+	signupError,
+} = authSlice.actions
 export const authReducer = authSlice.reducer
