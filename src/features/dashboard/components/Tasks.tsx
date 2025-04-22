@@ -89,6 +89,14 @@ export function Tasks() {
 												onChange={e => setEditableText(e.target.value)}
 												className="flex-1 p-1 border rounded-md"
 												autoFocus
+												onKeyDown={e => {
+													if (e.key === 'Escape') {
+														setEditingId(null)
+													} else if (e.key === 'Enter') {
+														updateTask(task.id, { name: editableText })
+														setEditingId(null)
+													}
+												}}
 											/>
 										) : (
 											<span
