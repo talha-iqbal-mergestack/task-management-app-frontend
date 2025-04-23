@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux'
 import { z } from 'zod'
 
 import { authApi } from '@features/auth/api'
-import { setCredentials } from '@features/auth/auth-slice'
 import { SigninFormValues } from '@features/auth/signin/types'
+import { useAuth } from '@features/auth/hooks'
 
 const schema = z.object({
 	email: z.string().email(),
@@ -17,6 +17,7 @@ const schema = z.object({
 export function useSigninForm() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const { signin } = useAuth()
 	const form = useForm({
 		resolver: zodResolver(schema),
 		defaultValues: {
@@ -28,8 +29,7 @@ export function useSigninForm() {
 	const signinMutation = useMutation({
 		mutationFn: authApi.signin,
 		onSuccess: data => {
-			localStorage.setItem('token', data.body.token)
-			dispatch(setCredentials({ token: data.body.token }))
+			signin(data)
 			navigate({ to: '/dashboard' })
 		},
 		onError: error => {

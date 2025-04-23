@@ -6,8 +6,8 @@ import { useNavigate } from '@tanstack/react-router'
 import { z } from 'zod'
 
 import { authApi } from '@features/auth/api'
-import { setCredentials } from '@features/auth/auth-slice'
 import { SignupFormValues } from '@features/auth/signup/types'
+import { useAuth } from '@features/auth/hooks'
 
 const schema = z
 	.object({
@@ -23,6 +23,7 @@ const schema = z
 export function useSignupForm() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const { signup } = useAuth()
 
 	const form = useForm<SignupFormValues>({
 		resolver: zodResolver(schema),
@@ -36,7 +37,7 @@ export function useSignupForm() {
 	const signupMutation = useMutation({
 		mutationFn: authApi.signup,
 		onSuccess: data => {
-			dispatch(setCredentials({ user: data.body }))
+			signup(data)
 			navigate({ to: '/signin' })
 		},
 		onError: error => {

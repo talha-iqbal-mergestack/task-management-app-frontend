@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { PayloadAction } from '@reduxjs/toolkit'
+import { jwtDecode } from 'jwt-decode'
 
 import { authApi } from '@features/auth/api'
 import {
@@ -21,7 +22,7 @@ function* handleSignin(action: PayloadAction<SigninCredentials>) {
 	try {
 		const response: SigninResponse = yield call(authApi.signin, action.payload)
 		localStorage.setItem('token', response.body.token)
-		yield put(setCredentials({ token: response.body.token }))
+		yield put(setCredentials({ user: jwtDecode(response.body.token) }))
 	} catch (error: any) {
 		yield put(signinError(error.message))
 	}

@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { useTasksForm } from '@features/dashboard/hooks'
 import { FormInput } from '@common/components'
 import { TaskFormValues } from '@features/dashboard/types'
-import { RootState } from '@store'
+import { useAuth } from '@features/auth/hooks'
+import { useNavigate } from '@tanstack/react-router'
 
 const TasksFormInput = FormInput<TaskFormValues>
 
@@ -25,16 +25,29 @@ export function Tasks() {
 	} = form
 
 	const [editableText, setEditableText] = useState('')
-	const isAuthenticated = useSelector(
-		(state: RootState) => state.auth.isAuthenticated,
-	)
+	const {
+		authState: { user },
+		signout,
+	} = useAuth()
+	const navigate = useNavigate()
+
+	const handleSignout = () => {
+		signout()
+		navigate({ to: '/signin' })
+	}
 
 	return (
 		<div className="h-[calc(100vh)] flex flex-col w-full p-6 bg-gray-50">
 			<div className="flex-1 flex flex-col min-h-0">
-				<div className="flex-shrink-0">
-					{isAuthenticated && <p>Welcome</p>}
+				{user && <div>{`Welcome ${user.email}`}</div>}
+				<div className="flex-shrink-0 flex justify-between items-center">
 					<h2 className="text-2xl font-bold text-gray-900">My Tasks</h2>
+					<button
+						onClick={handleSignout}
+						className="px-4 py-2 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+					>
+						Sign out
+					</button>
 				</div>
 
 				<form

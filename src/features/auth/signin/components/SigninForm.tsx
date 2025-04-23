@@ -1,11 +1,10 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from '@store'
 import { useSigninForm } from '@features/auth/signin/hooks'
 import { FormInput } from '@common/components'
 import { SigninFormValues } from '@features/auth/signin/types'
+import { useAuth } from '@features/auth/hooks'
 
 const SigninFormInput = FormInput<SigninFormValues>
 
@@ -17,9 +16,7 @@ export function SigninForm() {
 		formState: { errors },
 	} = form
 	const navigate = useNavigate()
-	const isAuthenticated = useSelector(
-		(state: RootState) => state.auth.isAuthenticated,
-	)
+	const { isAuthenticated } = useAuth()
 
 	useEffect(() => {
 		if (isAuthenticated) {
