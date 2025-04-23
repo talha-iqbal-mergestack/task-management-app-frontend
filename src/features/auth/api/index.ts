@@ -1,6 +1,10 @@
 import { apiClient } from '@lib/api'
-import { SigninCredentials, SigninResponse } from '@features/auth/signin/types'
-import { SignupCredentials, SignupResponse } from '@features/auth/signup/types'
+import {
+	SigninCredentials,
+	SigninResponse,
+	SignupCredentials,
+	SignupResponse,
+} from '@features/auth/types'
 
 export const authApi = {
 	signin: (credentials: SigninCredentials) =>

@@ -2,8 +2,12 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { PayloadAction } from '@reduxjs/toolkit'
 
 import { authApi } from '@features/auth/api'
-import { SigninCredentials, SigninResponse } from '@features/auth/signin/types'
-import { SignupCredentials, SignupResponse } from '@features/auth/signup/types'
+import {
+	SigninCredentials,
+	SigninResponse,
+	SignupCredentials,
+	SignupResponse,
+} from '@features/auth/types'
 import {
 	setCredentials,
 	signinError,
