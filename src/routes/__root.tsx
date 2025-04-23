@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-import { AuthContext } from '@features/auth/hooks/useAuth'
+import { AuthContext } from '@features/auth/common/hooks/useAuth'
 
 type RouterContext = {
 	authentication: AuthContext

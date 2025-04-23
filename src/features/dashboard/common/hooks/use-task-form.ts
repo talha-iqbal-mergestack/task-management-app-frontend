@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { TaskFormValues } from '@features/dashboard/types'
-import { tasksApi } from '@features/dashboard/api'
+import { TaskFormValues } from '@features/dashboard/common/types'
+import { tasksApi } from '@features/dashboard/common/api'
 
 const schema = z.object({
 	name: z.string().min(1, 'Task name is required'),

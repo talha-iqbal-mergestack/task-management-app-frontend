@@ -1,12 +1,12 @@
 import { useState } from 'react'
-
-import { useTasksForm } from '@features/dashboard/hooks'
-import { FormInput } from '@common/components'
-import { TaskFormValues } from '@features/dashboard/types'
-import { useAuth } from '@features/auth/hooks'
 import { useNavigate } from '@tanstack/react-router'
 
-const TasksFormInput = FormInput<TaskFormValues>
+import { useTasksForm } from '@features/dashboard/common/hooks'
+import { InputField as CustomInputField } from '@features/common/components'
+import { TaskFormValues } from '@features/dashboard/common/types'
+import { useAuth } from '@features/auth/common/hooks'
+
+const InputField = CustomInputField<TaskFormValues>
 
 export function Tasks() {
 	const {
@@ -23,7 +23,6 @@ export function Tasks() {
 		handleSubmit,
 		formState: { errors },
 	} = form
-
 	const [editableText, setEditableText] = useState('')
 	const {
 		authState: { user },
@@ -62,7 +61,7 @@ export function Tasks() {
 
 					<div className="flex items-start gap-4">
 						<div className="flex-1">
-							<TasksFormInput
+							<InputField
 								type="text"
 								name="name"
 								placeholder="Enter task name"

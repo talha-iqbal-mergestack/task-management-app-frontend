@@ -3,23 +3,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { useDispatch } from 'react-redux'
-import { z } from 'zod'
 
-import { authApi } from '@features/auth/api'
+import { authApi } from '@features/auth/common/api'
 import { SigninFormValues } from '@features/auth/signin/types'
-import { useAuth } from '@features/auth/hooks'
-
-const schema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
-})
+import { useAuth } from '@features/auth/common/hooks'
+import { signinSchema } from '@features/auth/common/schemas'
 
 export function useSigninForm() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { signin } = useAuth()
 	const form = useForm({
-		resolver: zodResolver(schema),
+		resolver: zodResolver(signinSchema),
 		defaultValues: {
 			email: '',
 			password: '',

@@ -22,7 +22,7 @@
 // 		}),
 // }
 
-import { Task, TaskFormValues } from '@features/dashboard/types'
+import { Task, TaskFormValues } from '@features/dashboard/common/types'
 
 // Mock data store
 let mockTasks: Task[] = [

@@ -2,11 +2,11 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
 import { useSigninForm } from '@features/auth/signin/hooks'
-import { FormInput } from '@common/components'
+import { InputField as CustomInputField } from '@features/common/components'
 import { SigninFormValues } from '@features/auth/signin/types'
-import { useAuth } from '@features/auth/hooks'
+import { useAuth } from '@features/auth/common/hooks'
 
-const SigninFormInput = FormInput<SigninFormValues>
+const InputField = CustomInputField<SigninFormValues>
 
 export function SigninForm() {
 	const { form, signinMutation, onSubmit } = useSigninForm()
@@ -16,7 +16,9 @@ export function SigninForm() {
 		formState: { errors },
 	} = form
 	const navigate = useNavigate()
-	const { isAuthenticated } = useAuth()
+	const {
+		authState: { isAuthenticated },
+	} = useAuth()
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -39,7 +41,7 @@ export function SigninForm() {
 						</div>
 					)}
 					<div className="rounded-md shadow-sm -space-y-px">
-						<SigninFormInput
+						<InputField
 							type="email"
 							name="email"
 							placeholder="Email address"
@@ -47,7 +49,7 @@ export function SigninForm() {
 							error={errors.email?.message}
 							isFirst
 						/>
-						<SigninFormInput
+						<InputField
 							type="password"
 							name="password"
 							placeholder="Password"

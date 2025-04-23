@@ -4,7 +4,7 @@ import {
 	SigninResponse,
 	SignupCredentials,
 	SignupResponse,
-} from '@features/auth/types'
+} from '@features/auth/common/types'
 
 export const authApi = {
 	signin: (credentials: SigninCredentials) =>

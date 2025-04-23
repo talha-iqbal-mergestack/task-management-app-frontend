@@ -10,7 +10,7 @@ type FormInputProps<TFormValues extends FieldValues> = {
 	isLast?: boolean
 }
 
-export function FormInput<TFormValues extends FieldValues>({
+export function InputField<TFormValues extends FieldValues>({
 	type,
 	placeholder,
 	name,

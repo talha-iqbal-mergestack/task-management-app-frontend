@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
 
@@ -6,13 +6,14 @@ import { RootState } from '@store'
 import {
 	setCredentials,
 	signout as signoutAction,
+	signupSuccess,
 } from '@features/auth/auth-slice'
-import { SigninResponse, SignupResponse } from '@features/auth/types'
+import { SigninResponse, SignupResponse } from '@features/auth/common/types'
 
 export function useAuth() {
 	const dispatch = useDispatch()
 	const authState = useSelector((state: RootState) => state.auth)
-	const [isAuthenticated, setIsAuthenticated] = useState(false)
+	// const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 	useEffect(() => {
 		const token = localStorage.getItem('token')
@@ -22,14 +23,14 @@ export function useAuth() {
 		}
 	}, [dispatch])
 
-	useEffect(() => {
-		if (authState.user) {
-			setIsAuthenticated(true)
-		}
-	}, [authState.user])
+	// useEffect(() => {
+	// 	if (authState.user) {
+	// 		setIsAuthenticated(true)
+	// 	}
+	// }, [authState.user])
 
 	const signup = (data: SignupResponse) => {
-		dispatch(setCredentials({ user: data.body }))
+		dispatch(signupSuccess({ user: data.body }))
 	}
 
 	const signin = (data: SigninResponse) => {
@@ -43,7 +44,7 @@ export function useAuth() {
 	}
 
 	return {
-		isAuthenticated,
+		// isAuthenticated,
 		authState,
 		signup,
 		signin,

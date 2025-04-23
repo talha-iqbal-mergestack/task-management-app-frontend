@@ -2,19 +2,20 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { jwtDecode } from 'jwt-decode'
 
-import { authApi } from '@features/auth/api'
+import { authApi } from '@features/auth/common/api'
 import {
 	SigninCredentials,
 	SigninResponse,
 	SignupCredentials,
 	SignupResponse,
-} from '@features/auth/types'
+} from '@features/auth/common/types'
 import {
 	setCredentials,
 	signinError,
 	signinStart,
 	signupError,
 	signupStart,
+	signupSuccess,
 } from '@features/auth/auth-slice'
 
 function* handleSignin(action: PayloadAction<SigninCredentials>) {
@@ -32,7 +33,7 @@ function* handleSignup(action: PayloadAction<SignupCredentials>) {
 	yield put(signupStart())
 	try {
 		const response: SignupResponse = yield call(authApi.signup, action.payload)
-		yield put(setCredentials({ user: response.body }))
+		yield put(signupSuccess({ user: response.body }))
 	} catch (error: any) {
 		yield put(signupError(error.message))
 		// yield put({ type: 'auth/signupFailure', payload: error.message })

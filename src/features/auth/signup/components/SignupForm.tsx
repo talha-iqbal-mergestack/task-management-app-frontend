@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 
 import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
-import { FormInput } from '@common/components'
-import { useAuth } from '@features/auth/hooks'
+import { InputField as CustomInputField } from '@features/common/components'
+import { useAuth } from '@features/auth/common/hooks'
 
-const SignupFormInput = FormInput<SignupFormValues>
+const InputField = CustomInputField<SignupFormValues>
 
 export function SignupForm() {
 	const { form, signupMutation, onSubmit } = useSignupForm()
@@ -17,7 +17,9 @@ export function SignupForm() {
 	} = form
 
 	const navigate = useNavigate()
-	const { isAuthenticated } = useAuth()
+	const {
+		authState: { isAuthenticated },
+	} = useAuth()
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -40,7 +42,7 @@ export function SignupForm() {
 						</div>
 					)}
 					<div className="rounded-md shadow-sm -space-y-px">
-						<SignupFormInput
+						<InputField
 							type="email"
 							name="email"
 							placeholder="Email address"
@@ -48,14 +50,14 @@ export function SignupForm() {
 							error={errors.email?.message}
 							isFirst
 						/>
-						<SignupFormInput
+						<InputField
 							type="password"
 							name="password"
 							placeholder="Password"
 							register={register}
 							error={errors.password?.message}
 						/>
-						<SignupFormInput
+						<InputField
 							type="password"
 							name="confirmPassword"
 							placeholder="Confirm password"
