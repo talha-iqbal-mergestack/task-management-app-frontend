@@ -7,7 +7,7 @@ import {
 	setCredentials,
 	signout as signoutAction,
 	signupSuccess,
-} from '@features/auth/auth-slice'
+} from '@store/slices/auth'
 import { SigninResponse, SignupResponse } from '@features/auth/common/types'
 
 export function useAuth() {

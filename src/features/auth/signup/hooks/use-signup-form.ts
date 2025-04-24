@@ -7,7 +7,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { authApi } from '@features/auth/common/api'
 import { SignupFormValues } from '@features/auth/signup/types'
 import { useAuth } from '@features/auth/common/hooks'
-import { signupSchema } from '@features/auth/common/schemas'
+import { signupSchema } from '@src/common/schemas'
 
 export function useSignupForm() {
 	const dispatch = useDispatch()

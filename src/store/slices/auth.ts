@@ -42,7 +42,7 @@ const authSlice = createSlice({
 		},
 		signupSuccess: (state, action) => {
 			state.user = action.payload.user
-			state.isAuthenticated = true
+			state.isAuthenticated = false
 			state.loading = false
 			state.error = null
 		},

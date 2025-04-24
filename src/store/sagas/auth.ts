@@ -16,7 +16,8 @@ import {
 	signupError,
 	signupStart,
 	signupSuccess,
-} from '@features/auth/auth-slice'
+} from '@store/slices/auth'
+import { router } from '@src/App'
 
 function* handleSignin(action: PayloadAction<SigninCredentials>) {
 	yield put(signinStart())
@@ -24,7 +25,8 @@ function* handleSignin(action: PayloadAction<SigninCredentials>) {
 		const response: SigninResponse = yield call(authApi.signin, action.payload)
 		localStorage.setItem('token', response.body.token)
 		yield put(setCredentials({ user: jwtDecode(response.body.token) }))
-	} catch (error: any) {
+		yield call([router, router.navigate], { to: '/dashboard' })
+	} catch (error) {
 		yield put(signinError(error.message))
 	}
 }
@@ -34,9 +36,9 @@ function* handleSignup(action: PayloadAction<SignupCredentials>) {
 	try {
 		const response: SignupResponse = yield call(authApi.signup, action.payload)
 		yield put(signupSuccess({ user: response.body }))
-	} catch (error: any) {
+		yield call([router, router.navigate], { to: '/signin' })
+	} catch (error) {
 		yield put(signupError(error.message))
-		// yield put({ type: 'auth/signupFailure', payload: error.message })
 	}
 }
 

@@ -1,7 +1,8 @@
+import { FieldType } from '@features/common/enums'
 import { UseFormRegister, Path, FieldValues } from 'react-hook-form'
 
 type FormInputProps<TFormValues extends FieldValues> = {
-	type: 'text' | 'email' | 'password' | 'number'
+	type: FieldType
 	placeholder: string
 	name: Path<TFormValues>
 	register: UseFormRegister<TFormValues>

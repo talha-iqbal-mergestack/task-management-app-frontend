@@ -1,30 +1,28 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { Link } from '@tanstack/react-router'
 
 import { useSigninForm } from '@features/auth/signin/hooks'
-import { InputField as CustomInputField } from '@features/common/components'
+import {
+	InputField as CustomInputField,
+	PasswordInputField,
+} from '@features/common/components'
 import { SigninFormValues } from '@features/auth/signin/types'
 import { useAuth } from '@features/auth/common/hooks'
+import { FieldType } from '@features/common/enums'
 
 const InputField = CustomInputField<SigninFormValues>
 
 export function SigninForm() {
-	const { form, signinMutation, onSubmit } = useSigninForm()
+	const {
+		form,
+		// signinMutation,
+		onSubmit,
+	} = useSigninForm()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = form
-	const navigate = useNavigate()
-	const {
-		authState: { isAuthenticated },
-	} = useAuth()
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			navigate({ to: '/dashboard' })
-		}
-	}, [isAuthenticated, navigate])
+	const { authState } = useAuth()
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -35,28 +33,24 @@ export function SigninForm() {
 					</h2>
 				</div>
 				<form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-					{errors.root && (
+					{/* {errors.root && (
 						<div className="text-red-500 text-sm text-center">
 							{errors.root.message}
 						</div>
+					)} */}
+					{authState.error && (
+						<div className="text-red-500 text-sm text-center">{`${authState.error}`}</div>
 					)}
 					<div className="rounded-md shadow-sm -space-y-px">
 						<InputField
-							type="email"
+							type={FieldType.email}
 							name="email"
 							placeholder="Email address"
 							register={register}
 							error={errors.email?.message}
 							isFirst
 						/>
-						<InputField
-							type="password"
-							name="password"
-							placeholder="Password"
-							register={register}
-							error={errors.password?.message}
-							isLast
-						/>
+						<PasswordInputField register={register} errors={errors} />
 					</div>
 
 					<div>
@@ -64,7 +58,8 @@ export function SigninForm() {
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 						>
-							{signinMutation.isPending ? 'Signing in...' : 'Sign in'}
+							{/* {signinMutation.isPending ? 'Signing in...' : 'Sign in'} */}
+							{authState.loading ? 'Signing in...' : 'Sign in'}
 						</button>
 					</div>
 

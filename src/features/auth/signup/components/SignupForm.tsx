@@ -1,31 +1,25 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { Link } from '@tanstack/react-router'
 
 import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
 import { InputField as CustomInputField } from '@features/common/components'
 import { useAuth } from '@features/auth/common/hooks'
+import { FieldType } from '@features/common/enums'
 
 const InputField = CustomInputField<SignupFormValues>
 
 export function SignupForm() {
-	const { form, signupMutation, onSubmit } = useSignupForm()
+	const {
+		form,
+		// signupMutation,
+		onSubmit,
+	} = useSignupForm()
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = form
-
-	const navigate = useNavigate()
-	const {
-		authState: { isAuthenticated },
-	} = useAuth()
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			navigate({ to: '/signin' })
-		}
-	}, [isAuthenticated, navigate])
+	const { authState } = useAuth()
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -36,14 +30,17 @@ export function SignupForm() {
 					</h2>
 				</div>
 				<form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-					{errors.root && (
+					{/* {errors.root && (
 						<div className="text-red-500 text-sm text-center">
 							{errors.root.message}
 						</div>
+					)} */}
+					{authState.error && (
+						<div className="text-red-500 text-sm text-center">{`${authState.error}`}</div>
 					)}
 					<div className="rounded-md shadow-sm -space-y-px">
 						<InputField
-							type="email"
+							type={FieldType.email}
 							name="email"
 							placeholder="Email address"
 							register={register}
@@ -51,14 +48,14 @@ export function SignupForm() {
 							isFirst
 						/>
 						<InputField
-							type="password"
+							type={FieldType.password}
 							name="password"
 							placeholder="Password"
 							register={register}
 							error={errors.password?.message}
 						/>
 						<InputField
-							type="password"
+							type={FieldType.password}
 							name="confirmPassword"
 							placeholder="Confirm password"
 							register={register}
@@ -72,7 +69,8 @@ export function SignupForm() {
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 						>
-							{signupMutation.isPending ? 'Signing up...' : 'Sign up'}
+							{/* {signupMutation.isPending ? 'Signing up...' : 'Sign up'} */}
+							{authState.loading ? 'Signing up...' : 'Sign up'}
 						</button>
 					</div>
 

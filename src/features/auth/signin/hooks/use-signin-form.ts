@@ -7,16 +7,19 @@ import { useDispatch } from 'react-redux'
 import { authApi } from '@features/auth/common/api'
 import { SigninFormValues } from '@features/auth/signin/types'
 import { useAuth } from '@features/auth/common/hooks'
-import { signinSchema } from '@features/auth/common/schemas'
+import { signinSchema } from '@src/common/schemas'
 
 export function useSigninForm() {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
-	const { signin } = useAuth()
+	const {
+		signin,
+		authState: { user },
+	} = useAuth()
 	const form = useForm({
 		resolver: zodResolver(signinSchema),
 		defaultValues: {
-			email: '',
+			email: user?.email || '',
 			password: '',
 		},
 	})
