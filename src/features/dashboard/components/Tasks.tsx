@@ -5,6 +5,7 @@ import { useTasksForm } from '@features/dashboard/common/hooks'
 import { InputField as CustomInputField } from '@features/common/components'
 import { TaskFormValues } from '@features/dashboard/common/types'
 import { useAuth } from '@features/auth/common/hooks'
+import { FieldType } from '@features/common/enums'
 
 const InputField = CustomInputField<TaskFormValues>
 
@@ -38,7 +39,7 @@ export function Tasks() {
 	return (
 		<div className="h-[calc(100vh)] flex flex-col w-full p-6 bg-gray-50">
 			<div className="flex-1 flex flex-col min-h-0">
-				{user && <div>{`Welcome ${user.email}`}</div>}
+				{user?.username && <div>{`Welcome ${user.username}`}</div>}
 				<div className="flex-shrink-0 flex justify-between items-center">
 					<h2 className="text-2xl font-bold text-gray-900">My Tasks</h2>
 					<button
@@ -62,7 +63,7 @@ export function Tasks() {
 					<div className="flex items-start gap-4">
 						<div className="flex-1">
 							<InputField
-								type="text"
+								type={FieldType.text}
 								name="name"
 								placeholder="Enter task name"
 								register={register}

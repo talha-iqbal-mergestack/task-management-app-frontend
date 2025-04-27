@@ -48,6 +48,20 @@ export function SignupForm() {
 							isFirst
 						/>
 						<InputField
+							type={FieldType.text}
+							name="username"
+							placeholder="Username"
+							register={register}
+							error={errors.username?.message}
+						/>
+						<InputField
+							type={FieldType.tel}
+							name="contactNumber"
+							placeholder="Contact Number"
+							register={register}
+							error={errors.contactNumber?.message}
+						/>
+						<InputField
 							type={FieldType.password}
 							name="password"
 							placeholder="Password"

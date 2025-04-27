@@ -18,6 +18,8 @@ export function useSignupForm() {
 		resolver: zodResolver(signupSchema),
 		defaultValues: {
 			email: '',
+			username: '',
+			contactNumber: '',
 			password: '',
 			confirmPassword: '',
 		},
@@ -37,9 +39,12 @@ export function useSignupForm() {
 	})
 
 	const onSubmit: SubmitHandler<SignupFormValues> = data => {
-		const { email, confirmPassword: password } = data
+		const { email, confirmPassword: password, username, contactNumber } = data
 		// signupMutation.mutate({ email, password })
-		dispatch({ type: 'auth/signup', payload: { email, password } })
+		dispatch({
+			type: 'auth/signup',
+			payload: { email, password, username, contactNumber },
+		})
 	}
 
 	return {
