@@ -18,6 +18,9 @@ export function Tasks() {
 		editingId,
 		setEditingId,
 		updateTask,
+		createTaskMutation,
+		updateTaskMutation,
+		deleteTaskMutation,
 	} = useTasksForm()
 	const {
 		register,
@@ -76,7 +79,9 @@ export function Tasks() {
 							type="submit"
 							className="h-[42px] px-6 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 						>
-							Create Task
+							{createTaskMutation.isPending
+								? 'Creating task...'
+								: 'Create Task'}
 						</button>
 					</div>
 				</form>
@@ -114,7 +119,6 @@ export function Tasks() {
 														setEditingId(null)
 													} else if (e.key === 'Enter') {
 														updateTask(task.id, { name: editableText })
-														setEditingId(null)
 													}
 												}}
 											/>
@@ -133,7 +137,6 @@ export function Tasks() {
 											onClick={() => {
 												if (editingId === task.id) {
 													updateTask(task.id, { name: editableText })
-													setEditingId(null)
 												} else {
 													setEditingId(task.id)
 													setEditableText(task.name)
@@ -141,13 +144,21 @@ export function Tasks() {
 											}}
 											className="px-4 py-2 text-gray-600 hover:text-indigo-600 rounded-md hover:bg-gray-100"
 										>
-											{editingId === task.id ? 'Save' : 'Edit'}
+											{editingId === task.id
+												? updateTaskMutation.isPending &&
+													updateTaskMutation.variables?.id === task.id
+													? 'Saving...'
+													: 'Save'
+												: 'Edit'}
 										</button>
 										<button
 											onClick={() => onDelete(task.id)}
 											className="px-4 py-2 text-gray-600 hover:text-red-600 rounded-md hover:bg-gray-100"
 										>
-											Delete
+											{deleteTaskMutation.isPending &&
+											deleteTaskMutation.variables === task.id
+												? 'Deleting...'
+												: 'Delete'}
 										</button>
 									</div>
 								</li>

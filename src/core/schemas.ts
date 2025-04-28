@@ -1,4 +1,4 @@
-import { string, object } from 'zod'
+import { string, object, boolean } from 'zod'
 
 import {
 	invalidContactNumberError,
@@ -24,4 +24,9 @@ export const signupSchema = object({
 }).refine(data => data.password === data.confirmPassword, {
 	message: nonSimilarPasswordsError,
 	path: ['confirmPassword'],
+})
+
+export const createTaskSchema = object({
+	name: string().min(1, 'Task name is required'),
+	completed: boolean(),
 })
