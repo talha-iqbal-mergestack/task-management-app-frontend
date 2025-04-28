@@ -1,10 +1,12 @@
 import { Link } from '@tanstack/react-router'
+import { toast } from 'sonner'
 
 import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
 import { InputField as CustomInputField } from '@features/common/components'
 import { useAuth } from '@features/auth/common/hooks'
 import { FieldType } from '@src/core/enums'
+import { useEffect } from 'react'
 
 const InputField = CustomInputField<SignupFormValues>
 
@@ -21,6 +23,12 @@ export function SignupForm() {
 	} = form
 	const { authState } = useAuth()
 
+	useEffect(() => {
+		if (authState.error) {
+			toast.error(authState.error)
+		}
+	}, [authState.error])
+
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">
 			<div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
@@ -35,9 +43,6 @@ export function SignupForm() {
 							{errors.root.message}
 						</div>
 					)} */}
-					{authState.error && (
-						<div className="text-red-500 text-sm text-center">{`${authState.error}`}</div>
-					)}
 					<div className="rounded-md shadow-sm -space-y-px">
 						<InputField
 							type={FieldType.email}

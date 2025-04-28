@@ -1,4 +1,6 @@
 import { Link } from '@tanstack/react-router'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 import { useSigninForm } from '@features/auth/signin/hooks'
 import {
@@ -24,6 +26,12 @@ export function SigninForm() {
 	} = form
 	const { authState } = useAuth()
 
+	useEffect(() => {
+		if (authState.error) {
+			toast.error(authState.error)
+		}
+	}, [authState.error])
+
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">
 			<div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
@@ -38,9 +46,6 @@ export function SigninForm() {
 							{errors.root.message}
 						</div>
 					)} */}
-					{authState.error && (
-						<div className="text-red-500 text-sm text-center">{`${authState.error}`}</div>
-					)}
 					<div className="rounded-md shadow-sm -space-y-px">
 						<InputField
 							type={FieldType.email}
