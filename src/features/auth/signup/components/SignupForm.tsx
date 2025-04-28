@@ -4,7 +4,7 @@ import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
 import { InputField as CustomInputField } from '@features/common/components'
 import { useAuth } from '@features/auth/common/hooks'
-import { FieldType } from '@features/common/enums'
+import { FieldType } from '@src/core/enums'
 
 const InputField = CustomInputField<SignupFormValues>
 

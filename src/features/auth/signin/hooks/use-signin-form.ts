@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { authApi } from '@features/auth/common/api'
 import { SigninFormValues } from '@features/auth/signin/types'
 import { useAuth } from '@features/auth/common/hooks'
-import { signinSchema } from '@src/common/schemas'
+import { signinSchema } from '@src/core/schemas'
 
 export function useSigninForm() {
 	const dispatch = useDispatch()

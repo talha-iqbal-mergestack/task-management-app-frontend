@@ -7,7 +7,7 @@ import {
 } from '@features/common/components'
 import { SigninFormValues } from '@features/auth/signin/types'
 import { useAuth } from '@features/auth/common/hooks'
-import { FieldType } from '@features/common/enums'
+import { FieldType } from '@src/core/enums'
 
 const InputField = CustomInputField<SigninFormValues>
 

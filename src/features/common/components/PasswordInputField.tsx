@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 
 import { InputField } from '@features/common/components'
-import { FieldType } from '@features/common/enums'
+import { FieldType } from '@src/core/enums'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { SigninFormValues } from '@features/auth/signin/types'
 

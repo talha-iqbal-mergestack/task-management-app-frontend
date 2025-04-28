@@ -5,7 +5,7 @@ import { useTasksForm } from '@features/dashboard/common/hooks'
 import { InputField as CustomInputField } from '@features/common/components'
 import { TaskFormValues } from '@features/dashboard/common/types'
 import { useAuth } from '@features/auth/common/hooks'
-import { FieldType } from '@features/common/enums'
+import { FieldType } from '@src/core/enums'
 
 const InputField = CustomInputField<TaskFormValues>
 

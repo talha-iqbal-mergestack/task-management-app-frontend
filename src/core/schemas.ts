@@ -5,7 +5,7 @@ import {
 	invalidPasswordError,
 	invalidUsernameError,
 	nonSimilarPasswordsError,
-} from '@src/common/constants'
+} from '@src/core/constants'
 
 export const signinSchema = object({
 	email: string().email(),

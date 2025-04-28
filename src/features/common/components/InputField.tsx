@@ -1,5 +1,6 @@
-import { FieldType } from '@features/common/enums'
 import { UseFormRegister, Path, FieldValues } from 'react-hook-form'
+
+import { FieldType } from '@src/core/enums'
 
 type FormInputProps<TFormValues extends FieldValues> = {
 	type: FieldType
