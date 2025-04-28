@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 
 import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
-import { InputField as CustomInputField } from '@features/common/components'
+import { InputField as CustomInputField } from '@features/common/components/InputField'
 import { useAuth } from '@features/auth/common/hooks'
 import { FieldType } from '@src/core/enums'
 import { useEffect } from 'react'

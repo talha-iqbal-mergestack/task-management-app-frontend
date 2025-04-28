@@ -3,10 +3,8 @@ import { useEffect } from 'react'
 import { toast } from 'sonner'
 
 import { useSigninForm } from '@features/auth/signin/hooks'
-import {
-	InputField as CustomInputField,
-	PasswordInputField,
-} from '@features/common/components'
+import { InputField as CustomInputField } from '@features/common/components/InputField'
+import { PasswordInputField } from '@features/common/components'
 import { SigninFormValues } from '@features/auth/signin/types'
 import { useAuth } from '@features/auth/common/hooks'
 import { FieldType } from '@src/core/enums'
