@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { getEnv } from '@lib'
 
 export type ApiError = {
 	message: string
@@ -6,7 +7,7 @@ export type ApiError = {
 }
 
 const axiosInstance = axios.create({
-	baseURL: import.meta.env.VITE_BACKEND_API_URL,
+	baseURL: getEnv(import.meta.env.VITE_BACKEND_API_URL),
 	headers: {
 		'Content-Type': 'application/json',
 		authorization: `Bearer ${localStorage.getItem('token')}`,

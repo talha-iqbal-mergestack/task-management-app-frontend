@@ -28,8 +28,9 @@
 			"@assets/*": ["src/assets/*"],
 			"@constants/*": ["src/constants/*"],
 			"@features/*": ["src/features/*"],
+			"@lib": ["src/lib"],
 			"@lib/*": ["src/lib/*"],
-			"@store": ["./src/store"],
+			"@store": ["src/store"],
 			"@store/*": ["src/store/*"],
 			"@utils/*": ["src/utils/*"],
 			"@src/*": ["src/*"]
