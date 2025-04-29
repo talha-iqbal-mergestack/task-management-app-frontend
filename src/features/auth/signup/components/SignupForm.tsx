@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-import { toast } from 'sonner'
 
 import { useSignupForm } from '@features/auth/signup/hooks'
 import { SignupFormValues } from '@features/auth/signup/types'
@@ -7,6 +6,7 @@ import { InputField as CustomInputField } from '@features/common/components/Inpu
 import { useAuth } from '@features/auth/common/hooks'
 import { FieldType } from '@src/core/enums'
 import { useEffect } from 'react'
+import { toast } from '@features/common/lib'
 
 const InputField = CustomInputField<SignupFormValues>
 
