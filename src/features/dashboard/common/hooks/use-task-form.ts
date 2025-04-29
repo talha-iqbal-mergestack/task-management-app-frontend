@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
+import { toast } from '@features/common/lib'
 
 import { TaskFormValues } from '@features/dashboard/common/types'
 import { tasksApi } from '@features/dashboard/common/api'
