@@ -57,9 +57,9 @@ export function useTasksForm() {
 
 	const updateTaskMutation = useMutation({
 		mutationFn: tasksApi.updateTask,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['tasks'] })
+		onSuccess: async () => {
 			setEditingId(null)
+			await queryClient.invalidateQueries({ queryKey: ['tasks'] })
 			toast.success('Task updated successfully')
 		},
 		onError: error => {
