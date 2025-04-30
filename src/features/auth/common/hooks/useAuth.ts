@@ -4,9 +4,9 @@ import { jwtDecode } from 'jwt-decode'
 
 import { RootState } from '@store'
 import {
-	setCredentials,
-	signout as signoutAction,
-	signupSuccess,
+	setCredentialsAction,
+	signoutAction,
+	signupSuccessAction,
 } from '@store/slices/auth'
 import { SigninResponse, SignupResponse } from '@features/auth/common/types'
 
@@ -18,17 +18,17 @@ export function useAuth() {
 		const token = localStorage.getItem('token')
 		if (token) {
 			const user = jwtDecode(token)
-			dispatch(setCredentials({ user }))
+			dispatch(setCredentialsAction({ user }))
 		}
 	}, [dispatch])
 
 	const signup = (data: SignupResponse) => {
-		dispatch(signupSuccess({ user: data.body }))
+		dispatch(signupSuccessAction({ user: data.body }))
 	}
 
 	const signin = (data: SigninResponse) => {
 		localStorage.setItem('token', data.body.token)
-		dispatch(setCredentials({ user: jwtDecode(data.body.token) }))
+		dispatch(setCredentialsAction({ user: jwtDecode(data.body.token) }))
 	}
 
 	const signout = () => {

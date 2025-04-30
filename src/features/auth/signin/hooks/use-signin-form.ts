@@ -38,7 +38,6 @@ export function useSigninForm() {
 	})
 
 	const onSubmit: SubmitHandler<SigninFormValues> = data => {
-		// signinMutation.mutate(data)
 		dispatch({ type: 'auth/signin', payload: data })
 	}
 

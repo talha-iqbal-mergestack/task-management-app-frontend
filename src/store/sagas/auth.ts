@@ -10,35 +10,44 @@ import {
 	SignupResponse,
 } from '@features/auth/common/types'
 import {
-	setCredentials,
-	signinError,
-	signinStart,
-	signupError,
-	signupStart,
-	signupSuccess,
+	setCredentialsAction,
+	signinErrorAction,
+	signinStartAction,
+	signupErrorAction,
+	signupStartAction,
+	signupSuccessAction,
 } from '@store/slices/auth'
 import { router } from '@src/App'
+import { getApiErrorMessage } from '@utils/index'
 
 function* handleSignin(action: PayloadAction<SigninCredentials>) {
-	yield put(signinStart())
+	yield put(signinStartAction())
 	try {
 		const response: SigninResponse = yield call(authApi.signin, action.payload)
 		localStorage.setItem('token', response.body.token)
-		yield put(setCredentials({ user: jwtDecode(response.body.token) }))
+		yield put(setCredentialsAction({ user: jwtDecode(response.body.token) }))
 		yield call([router, router.navigate], { to: '/dashboard' })
 	} catch (error) {
-		yield put(signinError(error.message))
+		yield put(
+			signinErrorAction(
+				getApiErrorMessage(error, 'An unexpected signin error occurred'),
+			),
+		)
 	}
 }
 
 function* handleSignup(action: PayloadAction<SignupCredentials>) {
-	yield put(signupStart())
+	yield put(signupStartAction())
 	try {
 		const response: SignupResponse = yield call(authApi.signup, action.payload)
-		yield put(signupSuccess({ user: response.body }))
+		yield put(signupSuccessAction({ user: response.body }))
 		yield call([router, router.navigate], { to: '/signin' })
 	} catch (error) {
-		yield put(signupError(error.message))
+		yield put(
+			signupErrorAction(
+				getApiErrorMessage(error, 'An unexpected signup error occurred'),
+			),
+		)
 	}
 }
 

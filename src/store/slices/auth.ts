@@ -18,35 +18,35 @@ const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setCredentials: (state, action) => {
+		setCredentialsAction: (state, action) => {
 			state.user = action.payload.user
 			state.isAuthenticated = true
 			state.loading = false
 			state.error = null
 		},
-		signout: state => {
+		signoutAction: state => {
 			state.user = null
 			state.isAuthenticated = false
 		},
-		signinStart: state => {
+		signinStartAction: state => {
 			state.loading = true
 			state.error = null
 		},
-		signinError: (state, action) => {
+		signinErrorAction: (state, action) => {
 			state.loading = false
 			state.error = action.payload
 		},
-		signupStart: state => {
+		signupStartAction: state => {
 			state.loading = true
 			state.error = null
 		},
-		signupSuccess: (state, action) => {
+		signupSuccessAction: (state, action) => {
 			state.user = action.payload.user
 			state.isAuthenticated = false
 			state.loading = false
 			state.error = null
 		},
-		signupError: (state, action) => {
+		signupErrorAction: (state, action) => {
 			state.loading = false
 			state.error = action.payload
 		},
@@ -54,12 +54,12 @@ const authSlice = createSlice({
 })
 
 export const {
-	setCredentials,
-	signout,
-	signinStart,
-	signinError,
-	signupStart,
-	signupSuccess,
-	signupError,
+	setCredentialsAction,
+	signoutAction,
+	signinStartAction,
+	signinErrorAction,
+	signupStartAction,
+	signupSuccessAction,
+	signupErrorAction,
 } = authSlice.actions
 export const authReducer = authSlice.reducer
