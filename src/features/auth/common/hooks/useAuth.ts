@@ -13,7 +13,6 @@ import { SigninResponse, SignupResponse } from '@features/auth/common/types'
 export function useAuth() {
 	const dispatch = useDispatch()
 	const authState = useSelector((state: RootState) => state.auth)
-	// const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 	useEffect(() => {
 		const token = localStorage.getItem('token')
@@ -22,12 +21,6 @@ export function useAuth() {
 			dispatch(setCredentials({ user }))
 		}
 	}, [dispatch])
-
-	// useEffect(() => {
-	// 	if (authState.user) {
-	// 		setIsAuthenticated(true)
-	// 	}
-	// }, [authState.user])
 
 	const signup = (data: SignupResponse) => {
 		dispatch(signupSuccess({ user: data.body }))
@@ -44,7 +37,6 @@ export function useAuth() {
 	}
 
 	return {
-		// isAuthenticated,
 		authState,
 		signup,
 		signin,

@@ -11,11 +11,7 @@ import { toast } from '@features/common/lib'
 const InputField = CustomInputField<SignupFormValues>
 
 export function SignupForm() {
-	const {
-		form,
-		// signupMutation,
-		onSubmit,
-	} = useSignupForm()
+	const { form, onSubmit } = useSignupForm()
 	const {
 		register,
 		handleSubmit,
@@ -38,11 +34,6 @@ export function SignupForm() {
 					</h2>
 				</div>
 				<form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-					{/* {errors.root && (
-						<div className="text-red-500 text-sm text-center">
-							{errors.root.message}
-						</div>
-					)} */}
 					<div className="rounded-md shadow-sm -space-y-px">
 						<InputField
 							type={FieldType.email}
@@ -88,7 +79,6 @@ export function SignupForm() {
 							type="submit"
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 						>
-							{/* {signupMutation.isPending ? 'Signing up...' : 'Sign up'} */}
 							{authState.loading ? 'Signing up...' : 'Sign up'}
 						</button>
 					</div>

@@ -34,9 +34,6 @@ export function useTasksForm() {
 			toast.success('Task created successfully')
 		},
 		onError: error => {
-			// form.setError('root', {
-			// 	message: error.message || 'An error occurred while creating a task',
-			// })
 			toast.error(error.message || 'An error occurred while creating a task')
 		},
 	})
@@ -64,7 +61,6 @@ export function useTasksForm() {
 		},
 		onError: error => {
 			toast.error(error.message || 'Failed to update task')
-			// setEditingId(null);
 		},
 	})
 
