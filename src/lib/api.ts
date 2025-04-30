@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 import { getEnv } from '@lib'
 
 export type ApiError = {
@@ -10,9 +10,21 @@ const axiosInstance = axios.create({
 	baseURL: getEnv(import.meta.env.VITE_BACKEND_API_URL),
 	headers: {
 		'Content-Type': 'application/json',
-		authorization: `Bearer ${localStorage.getItem('token')}`,
 	},
 })
+
+axiosInstance.interceptors.request.use(
+	(config: InternalAxiosRequestConfig) => {
+		const token = localStorage.getItem('token')
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`
+		}
+		return config
+	},
+	error => {
+		return Promise.reject(error)
+	},
+)
 
 export async function apiClient<T>(
 	endpoint: string,
